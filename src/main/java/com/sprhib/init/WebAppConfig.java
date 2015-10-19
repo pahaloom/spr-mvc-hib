@@ -4,10 +4,12 @@ import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import org.flywaydb.core.Flyway;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -49,7 +51,16 @@ public class WebAppConfig {
 		return dataSource;
 	}
 	
-	@Bean
+	@Bean(initMethod = "migrate")
+	public Flyway flyway() {
+		Flyway flyway = new Flyway();
+		flyway.setDataSource(dataSource());
+		flyway.setLocations("classpath:db.migration");
+		return flyway;
+	}
+	
+	@Bean()
+	@DependsOn("flyway")
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
