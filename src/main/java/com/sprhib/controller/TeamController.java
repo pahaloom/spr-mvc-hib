@@ -1,5 +1,6 @@
 package com.sprhib.controller;
 
+import com.sprhib.model.Organization;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,18 @@ public class TeamController {
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public ModelAndView addingTeam(@ModelAttribute Team team) {
-		
-		ModelAndView modelAndView = new ModelAndView("home");
+
+		// Allow storing team without organization
+		Organization o = team.getOrganization();
+		if (o != null && o.getId() == null) {
+			team.setOrganization(null);
+		}
+
 		teamService.addTeam(team);
 		
 		String message = "Team was successfully added.";
+
+		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("message", message);
 		
 		return modelAndView;
