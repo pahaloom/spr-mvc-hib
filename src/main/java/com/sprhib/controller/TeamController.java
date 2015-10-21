@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sprhib.model.Team;
+import com.sprhib.service.OrganizationService;
 import com.sprhib.service.TeamService;
 
 @Controller
@@ -19,11 +20,15 @@ public class TeamController {
 	
 	@Autowired
 	private TeamService teamService;
-	
+
+	@Autowired
+	private OrganizationService organizationService;
+
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addTeamPage() {
 		ModelAndView modelAndView = new ModelAndView("add-team-form");
 		modelAndView.addObject("team", new Team());
+		modelAndView.addObject("organizations", organizationService.getOrganizations());
 		return modelAndView;
 	}
 	
