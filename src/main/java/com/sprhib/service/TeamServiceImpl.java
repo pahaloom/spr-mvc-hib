@@ -16,6 +16,11 @@ public class TeamServiceImpl implements TeamService {
 	@Autowired
 	private TeamDAO teamDAO;
 
+	/* setter for testing */
+	public void setTeamDAO(TeamDAO teamDAO) {
+		this.teamDAO = teamDAO;
+	}
+
 	public void addTeam(Team team) {
 		teamDAO.addTeam(team);		
 	}

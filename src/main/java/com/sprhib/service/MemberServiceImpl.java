@@ -14,6 +14,11 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberDAO memberDAO;
 
+	/* setter for testing */
+	void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+
 	@Override
 	public void addMember(Member member) {
 		memberDAO.addMember(member);

@@ -14,6 +14,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Autowired
 	OrganizationDAO organizationDAO;
 
+	/* setter for testing */
+	protected void setOrganizationDAO(OrganizationDAO organizationDAO) {
+		this.organizationDAO = organizationDAO;
+	}
+
 	@Override
 	public void addOrganization(Organization organization) {
 		organizationDAO.addOrganization(organization);
