@@ -10,8 +10,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Edit team page</title>
+<%@include file="fragment-bootstrap.jspf"%>
 </head>
 <body>
+<%@include file="fragment-navbar.jspf"%>
 <h1>Edit team page</h1>
 <p>Here you can edit the existing team.</p>
 <p>${message}</p>

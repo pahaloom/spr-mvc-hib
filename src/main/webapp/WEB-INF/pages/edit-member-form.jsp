@@ -10,8 +10,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Edit member page</title>
+<%@include file="fragment-bootstrap.jspf"%>
 </head>
 <body>
+<%@include file="fragment-navbar.jspf"%>
 <h1>Edit member page</h1>
 <p>Here you can edit the existing member.</p>
 <p>${message}</p>

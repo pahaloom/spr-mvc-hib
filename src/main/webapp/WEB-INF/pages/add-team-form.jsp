@@ -10,8 +10,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Add team page</title>
+<%@include file="fragment-bootstrap.jspf"%>
 </head>
 <body>
+<%@include file="fragment-navbar.jspf"%>
 <h1>Add team page</h1>
 <p>Here you can add a new team.</p>
 <form:form method="POST" commandName="team" action="${pageContext.request.contextPath}/team/add.html">

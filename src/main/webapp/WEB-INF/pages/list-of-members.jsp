@@ -9,8 +9,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>List of members</title>
+<%@include file="fragment-bootstrap.jspf"%>
 </head>
 <body>
+<%@include file="fragment-navbar.jspf"%>
 <h1>List of members</h1>
 <p>Here you can see the list of the members, edit them, remove or update.</p>
 <table border="1px" cellpadding="0" cellspacing="0" >
