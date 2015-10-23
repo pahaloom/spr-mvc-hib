@@ -22,6 +22,14 @@
 		<td><form:input path="name" /></td>
 	</tr>
 	<tr>
+		<td>Teams:</td>
+		<td>
+			<form:select multiple="true" path="teams">
+				<form:options items="${teams}" itemLabel="name" itemValue="id"/>
+			</form:select>
+		</td>
+	</tr>
+	<tr>
 		<td><input type="submit" value="Add" /></td>
 		<td></td>
 	</tr>

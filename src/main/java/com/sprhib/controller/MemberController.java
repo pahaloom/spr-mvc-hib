@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sprhib.model.Member;
+import com.sprhib.model.Team;
 import com.sprhib.service.MemberService;
+import com.sprhib.service.TeamService;
+import java.beans.PropertyEditorSupport;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 @Controller
 @RequestMapping(value="/member")
@@ -20,10 +25,14 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private TeamService teamService;
+
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addMemberPage() {
 		ModelAndView modelAndView = new ModelAndView("add-member-form");
 		modelAndView.addObject("member", new Member());
+		modelAndView.addObject("teams", teamService.getTeams());
 		return modelAndView;
 	}
 	
@@ -80,4 +89,17 @@ public class MemberController {
 		return modelAndView;
 	}
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(Team.class, new TeamEditor());
+	}
+
+	public class TeamEditor extends PropertyEditorSupport {
+
+		@Override
+		public void setAsText(String text) throws IllegalArgumentException {
+			int id = Integer.parseInt(text);
+			setValue(teamService.getTeam(id));
+		}
+	}
 }
