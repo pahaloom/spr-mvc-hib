@@ -15,6 +15,8 @@ ${message}<br/>
 <a href="${pageContext.request.contextPath}/team/list.html">Team list</a><br/>
 <a href="${pageContext.request.contextPath}/organization/add.html">Add new organization</a><br/>
 <a href="${pageContext.request.contextPath}/organization/list.html">Organization list</a><br/>
+<a href="${pageContext.request.contextPath}/member/add.html">Add new member</a><br/>
+<a href="${pageContext.request.contextPath}/member/list.html">Member list</a><br/>
 </p>
 </body>
 </html>
