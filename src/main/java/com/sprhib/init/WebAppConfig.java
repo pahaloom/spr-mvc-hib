@@ -1,5 +1,6 @@
 package com.sprhib.init;
 
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -11,14 +12,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
@@ -92,6 +97,35 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		resolver.setViewClass(JstlView.class);
 		return resolver;
+	}
+
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("ISO-8859-1");
+		return messageSource;
+	}
+
+	@Bean
+	public CookieLocaleResolver localeResolver() {
+		CookieLocaleResolver localeResolver = new CookieLocaleResolver();
+		localeResolver.setDefaultLocale(Locale.ENGLISH);
+		localeResolver.setCookieName("sprhib-locale");
+		localeResolver.setCookieMaxAge(3600 * 24);
+		return localeResolver;
+	}
+
+	@Bean
+	public LocaleChangeInterceptor localeInterceptor() {
+		LocaleChangeInterceptor localeInterceptor = new LocaleChangeInterceptor();
+		localeInterceptor.setParamName("locale");
+		return localeInterceptor;
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(localeInterceptor());
 	}
 
 	@Override

@@ -1,44 +1,49 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-sprhib-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
+		  <span class="sr-only"><spring:message code="navbar.toggle"/></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="${pageContext.request.contextPath}">Home</a>
+		  <a class="navbar-brand" href="${pageContext.request.contextPath}"><spring:message code="navbar.home"/></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-sprhib-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Organizations <span class="caret"></span></a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><spring:message code="navbar.organizations"/> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/organization/add.html">add</a></li>
-            <li><a href="${pageContext.request.contextPath}/organization/list.html">list</a></li>
+			  <li><a href="${pageContext.request.contextPath}/organization/add.html"><spring:message code="navbar.add"/></a></li>
+            <li><a href="${pageContext.request.contextPath}/organization/list.html"><spring:message code="navbar.list"/></a></li>
           </ul>
         </li>
       </ul>
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><spring:message code="navbar.teams"/> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/team/add.html">add</a></li>
-            <li><a href="${pageContext.request.contextPath}/team/list.html">list</a></li>
+            <li><a href="${pageContext.request.contextPath}/team/add.html"><spring:message code="navbar.add"/></a></li>
+            <li><a href="${pageContext.request.contextPath}/team/list.html"><spring:message code="navbar.list"/></a></li>
           </ul>
         </li>
       </ul>
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Team members <span class="caret"></span></a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><spring:message code="navbar.team.members"/> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/member/add.html">add</a></li>
-            <li><a href="${pageContext.request.contextPath}/member/list.html">list</a></li>
+            <li><a href="${pageContext.request.contextPath}/member/add.html"><spring:message code="navbar.add"/></a></li>
+            <li><a href="${pageContext.request.contextPath}/member/list.html"><spring:message code="navbar.list"/></a></li>
           </ul>
         </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="?locale=en_US">en:US</a></li>
+        <li><a href="?locale=en_GB">en:GB</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

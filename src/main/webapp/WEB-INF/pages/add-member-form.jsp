@@ -1,4 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
@@ -9,36 +10,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Add member page</title>
+<title><spring:message code="add.member.title"/></title>
 <%@include file="fragment-bootstrap.jspf"%>
 </head>
 <body>
 <%@include file="fragment-navbar.jspf"%>
-<h1>Add member page</h1>
-<p>Here you can add a new member.</p>
+<h1><spring:message code="add.member.title"/></h1>
+<p><spring:message code="add.member.description"/></p>
 <form:form method="POST" commandName="member" action="${pageContext.request.contextPath}/member/add.html">
 <table>
 <tbody>
 	<tr>
-		<td>Name:</td>
+		<td><spring:message code="add.member.label.name"/></td>
 		<td><form:input path="name" /></td>
 	</tr>
 	<tr>
-		<td>Teams:</td>
+		<td><spring:message code="add.member.label.teams"/></td>
 		<td>
 			<form:select multiple="true" path="teams">
 				<form:options items="${teams}" itemLabel="name" itemValue="id"/>
 			</form:select>
 		</td>
 	</tr>
-	<tr>
-		<td><input type="submit" value="Add" /></td>
+		<tr><spring:message code="add.member.button.add" var="i18nAdd"/>
+		<td><input type="submit" value="${i18nAdd}" /></td>
 		<td></td>
 	</tr>
 </tbody>
 </table>
 </form:form>
 
-<p><a href="${pageContext.request.contextPath}/index.html">Home page</a></p>
+<p><a href="${pageContext.request.contextPath}/index.html"><spring:message code="add.member.link.home"/></a></p>
 </body>
 </html>
