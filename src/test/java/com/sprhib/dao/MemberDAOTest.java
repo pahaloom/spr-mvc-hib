@@ -9,7 +9,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -27,7 +26,6 @@ public class MemberDAOTest {
 	TeamDAO teamDAO;
 
 	@Test
-	@Commit
 	public void testAddMember() {
 		Team team1 = new Team();
 		team1.setName("Test team 1");
