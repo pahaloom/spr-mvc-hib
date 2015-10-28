@@ -15,6 +15,8 @@ import com.sprhib.model.Team;
 import com.sprhib.service.MemberService;
 import com.sprhib.service.TeamService;
 import java.beans.PropertyEditorSupport;
+import java.util.Locale;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -28,6 +30,9 @@ public class MemberController {
 	@Autowired
 	private TeamService teamService;
 
+	@Autowired
+	private MessageSource messageSource;
+
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addMemberPage() {
 		ModelAndView modelAndView = new ModelAndView("add-member-form");
@@ -37,11 +42,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addingMember(@ModelAttribute Member member) {
+	public ModelAndView addingMember(@ModelAttribute Member member, Locale loc) {
 
 		memberService.addMember(member);
 		
-		String message = "Member was successfully added.";
+		String message = messageSource.getMessage("controller.member.added", null, loc);
 
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("message", message);
@@ -68,23 +73,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
-	public ModelAndView edditingMember(@ModelAttribute Member member, @PathVariable Integer id) {
+	public ModelAndView edditingMember(@ModelAttribute Member member, @PathVariable Integer id, Locale loc) {
 		
 		ModelAndView modelAndView = new ModelAndView("home");
 		
 		memberService.updateMember(member);
 		
-		String message = "Member was successfully edited.";
+		String message = messageSource.getMessage("controller.member.edited", null, loc);
 		modelAndView.addObject("message", message);
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public ModelAndView deleteMember(@PathVariable Integer id) {
+	public ModelAndView deleteMember(@PathVariable Integer id, Locale loc) {
 		ModelAndView modelAndView = new ModelAndView("home");
 		memberService.deleteMember(id);
-		String message = "Member was successfully deleted.";
+		String message = messageSource.getMessage("controller.member.deleted", null, loc);
 		modelAndView.addObject("message", message);
 		return modelAndView;
 	}

@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sprhib.model.Team;
 import com.sprhib.service.OrganizationService;
 import com.sprhib.service.TeamService;
+import java.util.Locale;
+import org.springframework.context.MessageSource;
 
 @Controller
 @RequestMapping(value="/team")
@@ -25,6 +27,9 @@ public class TeamController {
 	@Autowired
 	private OrganizationService organizationService;
 
+	@Autowired
+	private MessageSource messageSource;
+
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addTeamPage() {
 		ModelAndView modelAndView = new ModelAndView("add-team-form");
@@ -34,7 +39,7 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addingTeam(@ModelAttribute Team team) {
+	public ModelAndView addingTeam(@ModelAttribute Team team, Locale loc) {
 
 		// Allow storing team without organization
 		Organization o = team.getOrganization();
@@ -44,7 +49,7 @@ public class TeamController {
 
 		teamService.addTeam(team);
 		
-		String message = "Team was successfully added.";
+		String message = messageSource.getMessage("controller.team.added", null, loc);
 
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("message", message);
@@ -71,23 +76,23 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
-	public ModelAndView edditingTeam(@ModelAttribute Team team, @PathVariable Integer id) {
+	public ModelAndView edditingTeam(@ModelAttribute Team team, @PathVariable Integer id, Locale loc) {
 		
 		ModelAndView modelAndView = new ModelAndView("home");
 		
 		teamService.updateTeam(team);
 		
-		String message = "Team was successfully edited.";
+		String message = messageSource.getMessage("controller.team.edited", null, loc);
 		modelAndView.addObject("message", message);
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public ModelAndView deleteTeam(@PathVariable Integer id) {
+	public ModelAndView deleteTeam(@PathVariable Integer id, Locale loc) {
 		ModelAndView modelAndView = new ModelAndView("home");
 		teamService.deleteTeam(id);
-		String message = "Team was successfully deleted.";
+		String message = messageSource.getMessage("controller.team.deleted", null, loc);
 		modelAndView.addObject("message", message);
 		return modelAndView;
 	}

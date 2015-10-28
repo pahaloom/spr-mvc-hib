@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sprhib.model.Organization;
 import com.sprhib.service.OrganizationService;
+import java.util.Locale;
+import org.springframework.context.MessageSource;
 
 @Controller
 @RequestMapping(value="/organization")
@@ -20,6 +22,9 @@ public class OrganizationController {
 	@Autowired
 	private OrganizationService organizationService;
 	
+	@Autowired
+	private MessageSource messageSource;
+
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addOrganizationPage() {
 		ModelAndView modelAndView = new ModelAndView("add-organization-form");
@@ -28,12 +33,12 @@ public class OrganizationController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addingOrganization(@ModelAttribute Organization organization) {
+	public ModelAndView addingOrganization(@ModelAttribute Organization organization, Locale loc) {
 		
 		ModelAndView modelAndView = new ModelAndView("home");
 		organizationService.addOrganization(organization);
 		
-		String message = "Organization was successfully added.";
+		String message = messageSource.getMessage("controller.organization.added", null, loc);
 		modelAndView.addObject("message", message);
 		
 		return modelAndView;
@@ -58,23 +63,23 @@ public class OrganizationController {
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
-	public ModelAndView edditingOrganization(@ModelAttribute Organization organization, @PathVariable Integer id) {
+	public ModelAndView edditingOrganization(@ModelAttribute Organization organization, @PathVariable Integer id, Locale loc) {
 		
 		ModelAndView modelAndView = new ModelAndView("home");
 		
 		organizationService.updateOrganization(organization);
 		
-		String message = "Organization was successfully edited.";
+		String message = messageSource.getMessage("controller.organization.edited", null, loc);
 		modelAndView.addObject("message", message);
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public ModelAndView deleteOrganization(@PathVariable Integer id) {
+	public ModelAndView deleteOrganization(@PathVariable Integer id, Locale loc) {
 		ModelAndView modelAndView = new ModelAndView("home");
 		organizationService.deleteOrganization(id);
-		String message = "Organization was successfully deleted.";
+		String message = messageSource.getMessage("controller.organization.deleted", null, loc);
 		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
