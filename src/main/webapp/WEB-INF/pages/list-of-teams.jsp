@@ -19,7 +19,7 @@
 <table border="1px" cellpadding="0" cellspacing="0" >
 <thead>
 <tr>
-	<th width="10%"><spring:message code="list.team.header.id"/></th><th width="15%"><spring:message code="list.team.header.name"/></th><th width="10%"><spring:message code="list.team.header.rating"/></th><th width="10%"><spring:message code="list.team.header.actions"/></th>
+	<th width="10%"><spring:message code="list.team.header.id"/></th><th width="15%"><spring:message code="list.team.header.name"/></th><th width="10%"><spring:message code="list.team.header.rating"/></th><th width="10%"><spring:message code="list.team.header.organization"/></th><th width="10%"><spring:message code="list.team.header.actions"/></th>
 </tr>
 </thead>
 <tbody>
@@ -28,6 +28,7 @@
 	<td>${team.id}</td>
 	<td>${team.name}</td>
 	<td>${team.rating}</td>
+	<td>${team.organization.name}</td>
 	<td>
 		<a href="${pageContext.request.contextPath}/team/edit/${team.id}.html"><spring:message code="list.team.action.edit"/></a><br/>
 	<a href="${pageContext.request.contextPath}/team/delete/${team.id}.html"><spring:message code="list.team.action.delete"/></a><br/>
