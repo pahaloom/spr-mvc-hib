@@ -28,6 +28,7 @@ public class TeamDAOImpl implements TeamDAO {
 		Team teamToUpdate = getTeam(team.getId());
 		teamToUpdate.setName(team.getName());
 		teamToUpdate.setRating(team.getRating());
+		teamToUpdate.setOrganization(team.getOrganization());
 		getCurrentSession().update(teamToUpdate);
 		
 	}

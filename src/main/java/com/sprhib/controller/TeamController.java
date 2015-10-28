@@ -14,8 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sprhib.model.Team;
 import com.sprhib.service.OrganizationService;
 import com.sprhib.service.TeamService;
+import java.beans.PropertyEditorSupport;
 import java.util.Locale;
 import org.springframework.context.MessageSource;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 @Controller
 @RequestMapping(value="/team")
@@ -72,6 +75,7 @@ public class TeamController {
 		ModelAndView modelAndView = new ModelAndView("edit-team-form");
 		Team team = teamService.getTeam(id);
 		modelAndView.addObject("team",team);
+		modelAndView.addObject("organizations", organizationService.getOrganizations());
 		return modelAndView;
 	}
 	
@@ -97,4 +101,21 @@ public class TeamController {
 		return modelAndView;
 	}
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(Organization.class, new OrganizationEditor());
+	}
+
+	public class OrganizationEditor extends PropertyEditorSupport {
+
+		@Override
+		public void setAsText(String text) throws IllegalArgumentException {
+			if (text == null || text.isEmpty()) {
+				setValue(null);
+				return;
+			}
+			int id = Integer.parseInt(text);
+			setValue(organizationService.getOrganization(id));
+		}
+	}
 }

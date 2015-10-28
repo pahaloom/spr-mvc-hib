@@ -29,6 +29,15 @@
 		<td><spring:message code="edit.team.label.rating"/></td>
 		<td><form:input path="rating" /></td>
 	</tr>
+	<tr>
+		<td><spring:message code="edit.team.label.organization"/></td>
+		<td><spring:message code="edit.team.empty.organization" var="i18nEmptyOrganization"/>
+			<form:select path="organization">
+				<form:option value="${null}" label="${i18nEmptyOrganization}" />
+				<form:options items="${organizations}" itemLabel="name" itemValue="id" />
+			</form:select>
+		</td>
+	</tr>
 	<tr><spring:message code="edit.team.button.edit" var="i18nEdit"/>
 		<td><input type="submit" value="${i18nEdit}" /></td>
 		<td></td>
