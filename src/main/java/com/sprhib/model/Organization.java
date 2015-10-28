@@ -1,9 +1,12 @@
 package com.sprhib.model;
 
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +18,10 @@ public class Organization {
 	private Integer id;
 	
 	private String name;
-	
+
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "organization")
+	private List<Team> teams;
+
 	public Integer getId() {
 		return id;
 	}
@@ -27,6 +33,12 @@ public class Organization {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public List<Team> getTeams() {
+		return this.teams;
+	}
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
 	}
 
 	@Override
