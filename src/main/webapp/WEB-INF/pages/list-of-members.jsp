@@ -26,11 +26,11 @@
 <c:forEach var="member" items="${members}">
 <tr>
 	<td>${member.id}</td>
-	<td>${member.name}</td>
+	<td class="name">${member.name}</td>
 	<td><c:forEach var="team" items="${member.teams}">${team.name}<br/></c:forEach></td>
 	<td>
 	<a href="${pageContext.request.contextPath}/member/edit/${member.id}.html"><spring:message code="list.member.action.edit"/></a><br/>
-	<a href="${pageContext.request.contextPath}/member/delete/${member.id}.html"><spring:message code="list.member.action.delete"/></a><br/>
+	<a href="${pageContext.request.contextPath}/member/delete/${member.id}.html" class="deleteLink"><spring:message code="list.member.action.delete"/></a><br/>
 	</td>
 </tr>
 </c:forEach>
@@ -39,5 +39,10 @@
 
 	<p><a href="${pageContext.request.contextPath}/index.html"><spring:message code="list.member.link.home"/></a></p>
 
+<script type="text/javascript">
+	$('.deleteLink').click(function(){
+		return confirm("Are you sure you want to delete '" + $(this).closest("tr").find("td.name").text() + "'?");
+	});
+</script>
 </body>
 </html>
