@@ -19,6 +19,7 @@ import java.util.Locale;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value="/team")
@@ -61,12 +62,12 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value="/list")
-	public ModelAndView listOfTeams() {
+	public ModelAndView listOfTeams(@RequestParam(required = false) String message) {
 		ModelAndView modelAndView = new ModelAndView("list-of-teams");
 		
 		List<Team> teams = teamService.getTeams();
 		modelAndView.addObject("teams", teams);
-		
+		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
 	
@@ -82,7 +83,7 @@ public class TeamController {
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
 	public ModelAndView edditingTeam(@ModelAttribute Team team, @PathVariable Integer id, Locale loc) {
 		
-		ModelAndView modelAndView = new ModelAndView("home");
+		ModelAndView modelAndView = new ModelAndView("redirect:/team/list");
 		
 		teamService.updateTeam(team);
 		
@@ -94,7 +95,7 @@ public class TeamController {
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public ModelAndView deleteTeam(@PathVariable Integer id, Locale loc) {
-		ModelAndView modelAndView = new ModelAndView("home");
+		ModelAndView modelAndView = new ModelAndView("redirect:/team/list");
 		teamService.deleteTeam(id);
 		String message = messageSource.getMessage("controller.team.deleted", null, loc);
 		modelAndView.addObject("message", message);

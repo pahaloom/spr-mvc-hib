@@ -14,6 +14,7 @@ import com.sprhib.model.Organization;
 import com.sprhib.service.OrganizationService;
 import java.util.Locale;
 import org.springframework.context.MessageSource;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value="/organization")
@@ -45,12 +46,12 @@ public class OrganizationController {
 	}
 	
 	@RequestMapping(value="/list")
-	public ModelAndView listOfOrganizations() {
+	public ModelAndView listOfOrganizations(@RequestParam(required = false) String message) {
 		ModelAndView modelAndView = new ModelAndView("list-of-organizations");
 		
 		List<Organization> organizations = organizationService.getOrganizations();
 		modelAndView.addObject("organizations", organizations);
-		
+		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
 	
@@ -65,7 +66,7 @@ public class OrganizationController {
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
 	public ModelAndView edditingOrganization(@ModelAttribute Organization organization, @PathVariable Integer id, Locale loc) {
 		
-		ModelAndView modelAndView = new ModelAndView("home");
+		ModelAndView modelAndView = new ModelAndView("redirect:/organization/list");
 		
 		organizationService.updateOrganization(organization);
 		
@@ -77,7 +78,7 @@ public class OrganizationController {
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public ModelAndView deleteOrganization(@PathVariable Integer id, Locale loc) {
-		ModelAndView modelAndView = new ModelAndView("home");
+		ModelAndView modelAndView = new ModelAndView("redirect:/organization/list");
 		organizationService.deleteOrganization(id);
 		String message = messageSource.getMessage("controller.organization.deleted", null, loc);
 		modelAndView.addObject("message", message);

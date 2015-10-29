@@ -16,6 +16,7 @@
 <%@include file="fragment-navbar.jspf"%>
 <h1><spring:message code="list.team.title"/></h1>
 <p><spring:message code="list.team.description"/></p>
+<p>${message}</p>
 <table border="1px" cellpadding="0" cellspacing="0" >
 <thead>
 <tr>

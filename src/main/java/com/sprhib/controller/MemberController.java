@@ -19,6 +19,7 @@ import java.util.Locale;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value="/member")
@@ -55,12 +56,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/list")
-	public ModelAndView listOfMembers() {
+	public ModelAndView listOfMembers(@RequestParam(required = false) String message) {
 		ModelAndView modelAndView = new ModelAndView("list-of-members");
 		
 		List<Member> members = memberService.getMembers();
 		modelAndView.addObject("members", members);
-		
+		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
 	
@@ -76,7 +77,7 @@ public class MemberController {
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
 	public ModelAndView edditingMember(@ModelAttribute Member member, @PathVariable Integer id, Locale loc) {
 		
-		ModelAndView modelAndView = new ModelAndView("home");
+		ModelAndView modelAndView = new ModelAndView("redirect:/member/list");
 		
 		memberService.updateMember(member);
 		
@@ -88,7 +89,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public ModelAndView deleteMember(@PathVariable Integer id, Locale loc) {
-		ModelAndView modelAndView = new ModelAndView("home");
+		ModelAndView modelAndView = new ModelAndView("redirect:/member/list");
 		memberService.deleteMember(id);
 		String message = messageSource.getMessage("controller.member.deleted", null, loc);
 		modelAndView.addObject("message", message);
