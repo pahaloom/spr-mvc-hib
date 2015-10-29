@@ -69,6 +69,7 @@ public class MemberController {
 		ModelAndView modelAndView = new ModelAndView("edit-member-form");
 		Member member = memberService.getMember(id);
 		modelAndView.addObject("member",member);
+		modelAndView.addObject("teams", teamService.getTeams());
 		return modelAndView;
 	}
 	

@@ -27,6 +27,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public void updateMember(Member member) {
 		Member memberToUpdate = getMember(member.getId());
 		memberToUpdate.setName(member.getName());
+		memberToUpdate.setTeams(member.getTeams());
 		getCurrentSession().update(memberToUpdate);
 	}
 

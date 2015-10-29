@@ -25,6 +25,14 @@
 		<td><spring:message code="edit.member.label.name"/></td>
 		<td><form:input path="name" /></td>
 	</tr>
+	<tr>
+		<td><spring:message code="edit.member.label.teams"/></td>
+		<td>
+			<form:select multiple="true" path="teams">
+				<form:options items="${teams}" itemLabel="name" itemValue="id"/>
+			</form:select>
+		</td>
+	</tr>
 	<tr><spring:message code="edit.member.button.edit" var="i18nEdit"/>
 		<td><input type="submit" value="${i18nEdit}" /></td>
 		<td></td>
