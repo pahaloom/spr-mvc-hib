@@ -1,5 +1,6 @@
 package com.sprhib.model;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -46,5 +47,27 @@ public class Team {
 	}
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 37 * hash + Objects.hashCode(this.id);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Team other = (Team) obj;
+		if (!Objects.equals(this.id, other.id)) {
+			return false;
+		}
+		return true;
 	}
 }

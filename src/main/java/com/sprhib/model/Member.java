@@ -1,6 +1,7 @@
 package com.sprhib.model;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -42,5 +43,27 @@ public class Member {
 	}
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 29 * hash + Objects.hashCode(this.id);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Member other = (Member) obj;
+		if (!Objects.equals(this.id, other.id)) {
+			return false;
+		}
+		return true;
 	}
 }
