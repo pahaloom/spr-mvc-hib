@@ -1,10 +1,13 @@
 package com.sprhib.model;
 
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,7 +26,10 @@ public class Team {
 	@ManyToOne
 	@JoinColumn(name = "organization_id")
 	private Organization organization;
-	
+
+	@ManyToMany(mappedBy = "teams", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private List<Member> members;
+
 	public Integer getId() {
 		return id;
 	}
@@ -47,6 +53,12 @@ public class Team {
 	}
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
+	}
+	public List<Member> getMembers() {
+		return members;
+	}
+	public void setMembers(List<Member> members) {
+		this.members = members;
 	}
 
 	@Override

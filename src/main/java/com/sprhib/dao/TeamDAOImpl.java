@@ -1,5 +1,6 @@
 package com.sprhib.dao;
 
+import com.sprhib.model.Member;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -40,8 +41,17 @@ public class TeamDAOImpl implements TeamDAO {
 
 	public void deleteTeam(int id) {
 		Team team = getTeam(id);
-		if (team != null)
-			getCurrentSession().delete(team);
+		if (team != null) {
+			Session currentSession = getCurrentSession();
+			List<Member> members = team.getMembers();
+			if (members != null) {
+				for (Member m : members) {
+					m.getTeams().remove(team);
+					currentSession.update(m);
+				}
+			}
+			currentSession.delete(team);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
