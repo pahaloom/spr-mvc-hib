@@ -70,14 +70,14 @@ public class TeamControllerTest {
 	@Test
 	public void testEditPost() throws Exception {
 		mockMvc.perform(post("/team/edit/101"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("home"));
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/team/list"));
 	}
 
 	@Test
 	public void testDelete() throws Exception {
 		mockMvc.perform(get("/team/delete/101"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("home"));
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/team/list"));
 	}
 }

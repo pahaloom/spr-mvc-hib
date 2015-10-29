@@ -70,14 +70,14 @@ public class OrganizationControllerTest {
 	@Test
 	public void testEditPost() throws Exception {
 		mockMvc.perform(post("/organization/edit/20"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("home"));
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/organization/list"));
 	}
 
 	@Test
 	public void testDelete() throws Exception {
 		mockMvc.perform(get("/organization/delete/20"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("home"));
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/organization/list"));
 	}
 }
