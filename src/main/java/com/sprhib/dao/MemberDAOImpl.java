@@ -49,4 +49,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Member> getMembers() {
 		return getCurrentSession().createQuery("from Member").list();
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Member> getByOrganization(int organizationId) {
+		return getCurrentSession().createQuery("SELECT m FROM Member m JOIN m.teams t WHERE t.organization.id=:organizationId")
+				.setInteger("organizationId", organizationId).list();
+	}
 }

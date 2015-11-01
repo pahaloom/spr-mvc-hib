@@ -82,4 +82,9 @@ public class MemberDAOTest {
 	public void testGetMembers() {
 		memberDAO.getMembers();
 	}
+
+	@Test
+	public void testGetByOrganization() {
+		memberDAO.getByOrganization(7);
+	}
 }

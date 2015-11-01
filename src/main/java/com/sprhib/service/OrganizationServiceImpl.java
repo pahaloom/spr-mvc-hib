@@ -26,6 +26,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 		this.organizationDAO = organizationDAO;
 	}
 
+	/* setter for testing */
+	protected void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+
 	@Override
 	public void addOrganization(Organization organization) {
 		organizationDAO.addOrganization(organization);
@@ -47,21 +52,20 @@ public class OrganizationServiceImpl implements OrganizationService {
 		if (organization != null) {
 			List<Team> teams = organization.getTeams();
 			if (teams != null && !teams.isEmpty()){
-				for (Team team : teams) {
-					List<Member> members = team.getMembers();
-					if (members != null && !members.isEmpty()) {
-						for (Member member : members) {
-							List memberTeams = member.getTeams();
-							if (memberTeams != null && !memberTeams.isEmpty()) {
-								memberTeams.remove(team);
+				List<Member> organizationMembers = memberDAO.getByOrganization(organization.getId());
+				if (organizationMembers != null && !organizationMembers.isEmpty()) {
+					for (Member member : organizationMembers) {
+						List memberTeams = member.getTeams();
+						if (memberTeams != null && !memberTeams.isEmpty()) {
+							if (memberTeams.removeAll(teams)) {
 								memberDAO.updateMember(member);
 							}
 						}
 					}
 				}
 			}
+			organizationDAO.deleteOrganization(id);
 		}
-		organizationDAO.deleteOrganization(id);
 	}
 
 	@Override
