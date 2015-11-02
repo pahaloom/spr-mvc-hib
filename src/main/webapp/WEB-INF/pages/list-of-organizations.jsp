@@ -39,9 +39,9 @@
 
 <p><a href="${pageContext.request.contextPath}/index.html"><spring:message code="list.organization.link.home"/></a></p>
 
-<script type="text/javascript">
+<script type="text/javascript"><spring:message code="script.delete.confirmation" var="i18nConfirmation"/>
 	$('.deleteLink').click(function(){
-		return confirm("Are you sure you want to delete '" + $(this).closest("tr").find("td.name").text() + "'?");
+		return confirm("${i18nConfirmation} '" + $(this).closest("tr").find("td.name").text() + "'?");
 	});
 </script>
 </body>
